@@ -2,12 +2,14 @@
 
 A modern web app that creates a collage of GitHub profile pictures based on a list of usernames.
 
+![Demo of GitHub Profile Collage Generator](demo.png)
+
 ## Features
 
 - Enter multiple GitHub usernames
 - Automatically fetches profile pictures
 - Generates a customized collage based on the number of profiles
-- Download the collage as a PNG image
+- Download the collage as a PNG image with transparent background
 - Fully client-side (no server required)
 - Modern UI built with Tailwind CSS
 
@@ -25,6 +27,19 @@ A modern web app that creates a collage of GitHub profile pictures based on a li
 - Responsive design that works on mobile and desktop
 - Canvas API for image manipulation and collage creation
 - Tailwind CSS via CDN for modern, utility-first styling
+
+## Demo Examples
+
+The tool creates clean circular avatars on a transparent background that can be used in documentation, presentations, or team pages:
+
+```
+# Example usage:
+octocat
+defunkt
+mojombo
+wycats
+ezmobius
+```
 
 ## CORS Issues and Solutions
 
