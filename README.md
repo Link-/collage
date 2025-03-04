@@ -15,7 +15,7 @@ A modern web app that creates a collage of GitHub profile pictures based on a li
 
 ## How to Use
 
-1. Visit the [GitHub Profile Collage Generator](https://yourusername.github.io/collage_js/)
+1. Visit the [GitHub Profile Collage Generator](https://link-.github.io/collage)
 2. Enter GitHub usernames, one per line
 3. Click "Generate Collage"
 4. Once the collage is created, click "Download Collage" to save it as a PNG
