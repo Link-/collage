@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Profile Collage Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        github: {
+                            blue: '#0366d6',
+                            hover: '#0459b3',
+                            black: '#24292e',
+                            red: '#cb2431',
+                            gray: {
+                                light: '#f6f8fa',
+                                border: '#e1e4e8',
+                                text: '#586069'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-github-gray-light min-h-screen py-8 px-4 sm:px-6">
+    <!-- CORS Proxy Warning Banner -->
+    <div id="cors-warning" class="fixed top-0 left-0 right-0 bg-amber-50 border-b border-amber-200 py-3 px-4 shadow-sm z-50">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-amber-800">
+                    <strong>Privacy Notice:</strong> 
+                    This app may use a CORS proxy service to fetch GitHub profile images. 
+                    Your GitHub usernames and image requests may be processed by third-party services.
+                </span>
+            </div>
+            <button id="dismiss-warning" class="text-amber-700 hover:text-amber-900" aria-label="Dismiss">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <main class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden mt-12">
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 py-8 px-6">
+            <h1 class="text-3xl font-bold text-white text-center">
+                GitHub Profile Collage Generator
+            </h1>
+            <p class="text-blue-100 text-center mt-2">Create beautiful collages from GitHub profile pictures</p>
+        </div>
+        
+        <div class="p-6">
+            <div class="input-section space-y-4">
+                <label class="block text-sm font-medium text-github-black">
+                    Enter GitHub usernames, one per line:
+                </label>
+                <div class="mt-1">
+                    <textarea 
+                        id="usernames" 
+                        class="w-full px-4 py-3 border border-github-gray-border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        rows="5"
+                        placeholder="octocat&#10;defunkt&#10;mojombo"></textarea>
+                </div>
+                <div class="flex space-x-4">
+                    <button 
+                        id="generate" 
+                        class="flex-1 bg-github-blue hover:bg-github-hover text-white font-medium py-2 px-4 rounded-md transition duration-200 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm1 14a1 1 0 100-2 1 1 0 000 2zm5-1.757l4.9-4.9a2 2 0 000-2.828L13.485 5.1a2 2 0 00-2.828 0L10 5.757v8.486zM16 18H9.071l6-6H16a2 2 0 012 2v2a2 2 0 01-2 2z" clip-rule="evenodd" />
+                        </svg>
+                        Generate Collage
+                    </button>
+                    <button 
+                        id="download" 
+                        disabled 
+                        class="flex-1 bg-gray-300 text-gray-500 font-medium py-2 px-4 rounded-md transition duration-200 flex items-center justify-center disabled:cursor-not-allowed enabled:bg-green-600 enabled:hover:bg-green-700 enabled:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                        Download Collage
+                    </button>
+                </div>
+            </div>
+            
+            <div id="status" class="mt-4 h-6 font-medium"></div>
+            
+            <!-- Add more detailed API information -->
+            <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <h3 class="text-md font-medium text-blue-900">How it works:</h3>
+                <p class="text-sm text-blue-700 mt-1">
+                    This tool primarily tries to use the GitHub API to fetch profile pictures. 
+                    If the API rate limit is exceeded, it falls back to using a CORS proxy service.
+                    <a href="#" id="learn-more" class="underline hover:text-blue-800">Learn more</a>
+                </p>
+                <p class="text-sm text-blue-700 mt-2">
+                    <svg class="inline-block h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    The generated collage has a transparent background and clean circular avatars.
+                </p>
+            </div>
+            
+            <div class="result-section mt-8">
+                <h2 class="text-xl font-semibold text-github-black mb-4">Preview:</h2>
+                <!-- Update the collage container to show transparency with a checkered background -->
+                <div class="collage-container bg-github-gray-light border border-github-gray-border rounded-lg p-4 flex justify-center" 
+                     style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAxMC8yOS8xMiKqq3kAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAAAHklEQVQ4jWP4//8/AyWYYXQAw8DgNmAcTQPDJgMDAPAIB05E8Jn5AAAAAElFTkSuQmCC'); background-repeat: repeat;">
+                    <canvas id="collage" class="max-w-full"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Modal for "Learn More" -->
+    <div id="info-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-lg max-w-2xl w-full mx-4 p-6">
+            <div class="flex justify-between items-start">
+                <h2 class="text-xl font-bold text-github-black">About Data Processing</h2>
+                <button id="close-modal" class="text-gray-400 hover:text-gray-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="mt-4">
+                <p class="mb-3">This application handles GitHub profile images in two ways:</p>
+                <ol class="list-decimal list-inside space-y-2 mb-4">
+                    <li><strong>GitHub API Method:</strong> We first try to use the official GitHub API to fetch profile information, including the avatar URL. This is the most secure and direct method.</li>
+                    <li><strong>CORS Proxy Fallback:</strong> If the GitHub API fails (often due to rate limits), we fall back to fetching images via a CORS proxy. This means your GitHub username and image requests may pass through third-party servers.</li>
+                </ol>
+                <p class="mb-3"><strong>What is a CORS proxy?</strong></p>
+                <p class="mb-4">A CORS proxy is a service that fetches resources from other websites on your behalf when direct browser access is blocked by security policies. This tool uses publicly available CORS proxies when necessary.</p>
+                <p class="text-amber-700 bg-amber-50 p-3 rounded">
+                    <strong>Privacy implications:</strong> When using the CORS proxy fallback, the GitHub usernames you enter and the resulting image requests are processed by third-party services. We use reputable public proxies, but you should be aware of this data flow.
+                </p>
+            </div>
+            <div class="mt-6 flex justify-end">
+                <button id="close-modal-btn" class="px-4 py-2 bg-github-blue text-white rounded hover:bg-github-hover">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="max-w-4xl mx-auto mt-8 text-center text-github-gray-text text-sm">
+        <p>Made with 
+            <span class="text-red-500">❤️</span> 
+            for GitHub Profile Pictures
+        </p>
+        <p class="mt-2">
+            <a href="https://github.com" class="text-github-blue hover:underline">View on GitHub</a>
+        </p>
+    </footer>
+    
+    <script src="script.js"></script>
+    
+    <script>
+        // Warning banner and modal functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const dismissBtn = document.getElementById('dismiss-warning');
+            const warningBanner = document.getElementById('cors-warning');
+            const learnMoreBtn = document.getElementById('learn-more');
+            const infoModal = document.getElementById('info-modal');
+            const closeModalBtns = document.querySelectorAll('#close-modal, #close-modal-btn');
+            
+            dismissBtn.addEventListener('click', () => {
+                warningBanner.classList.add('hidden');
+                // Optional: Store in localStorage to keep it hidden on page refresh
+                localStorage.setItem('cors-warning-dismissed', 'true');
+            });
+            
+            // Check if warning was previously dismissed
+            if (localStorage.getItem('cors-warning-dismissed') === 'true') {
+                warningBanner.classList.add('hidden');
+            }
+            
+            // Learn more functionality
+            learnMoreBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                infoModal.classList.remove('hidden');
+            });
+            
+            // Close modal functionality
+            closeModalBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    infoModal.classList.add('hidden');
+                });
+            });
+            
+            // Close modal when clicking outside
+            infoModal.addEventListener('click', (e) => {
+                if (e.target === infoModal) {
+                    infoModal.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

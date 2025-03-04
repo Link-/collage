@@ -1,0 +1,27 @@
+/* Custom styles that complement Tailwind CSS */
+
+/* This file can be mostly empty since we're using Tailwind's utility classes directly in HTML */
+/* You can add any custom animations or styles that cannot be easily achieved with Tailwind here */
+
+/* Custom animation for the loading state */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-custom {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom styles for success and error messages that complement Tailwind */
+.status-success {
+  color: #0366d6;
+}
+
+.status-error {
+  color: #cb2431;
+}
