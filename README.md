@@ -2,7 +2,7 @@
 
 A modern web app that creates a collage of GitHub profile pictures based on a list of usernames.
 
-![Demo of GitHub Profile Collage Generator](demo.png)
+![Demo of GitHub Profile Collage Generator](img/demo.png)
 
 ## Features
 
