@@ -2,7 +2,10 @@
 
 A modern web app that creates a collage of GitHub profile pictures based on a list of usernames.
 
-![Demo of GitHub Profile Collage Generator](img/demo.png)
+> [!TIP]
+> Visit the [GitHub Profile Collage Generator](https://link-.github.io/collage/)
+
+<a href="https://link-.github.io/collage/"><img src="img/demo.png" alt="screenshot demo of the collage web app" width="70%" /></a>
 
 ## Features
 
@@ -15,7 +18,7 @@ A modern web app that creates a collage of GitHub profile pictures based on a li
 
 ## How to Use
 
-1. Visit the [GitHub Profile Collage Generator](https://yourusername.github.io/collage_js/)
+1. Visit the [GitHub Profile Collage Generator](https://yourusername.github.io/collage/)
 2. Enter GitHub usernames, one per line
 3. Click "Generate Collage"
 4. Once the collage is created, click "Download Collage" to save it as a PNG
@@ -83,11 +86,11 @@ If you have Python installed:
 
 ```bash
 # Python 3
-cd /path/to/collage_js
+cd /path/to/collage
 python -m http.server 8000
 
 # Python 2
-cd /path/to/collage_js
+cd /path/to/collage
 python -m SimpleHTTPServer 8000
 ```
 
@@ -102,7 +105,7 @@ There are several ways to run a server with Node.js without requiring global ins
 If you have npm installed (comes with Node.js), you can use npx to run http-server without a global installation:
 
 ```bash
-cd /path/to/collage_js
+cd /path/to/collage
 npx http-server -p 8000
 ```
 
@@ -112,7 +115,3 @@ If you use Visual Studio Code, you can use the "Live Server" extension:
 
 1. Install the "Live Server" extension
 2. Right-click on `index.html` and select "Open with Live Server"
-
-## License
-
-MIT
